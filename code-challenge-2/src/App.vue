@@ -3,6 +3,15 @@ import { reactive } from "vue";
 import { StarIcon } from "@heroicons/vue/24/solid";
 import { items } from "./movies.json";
 const movies = reactive(items);
+
+const selectRating = (newRating, movieId) => {
+  const movie = movies.find((movie) => movie.id === movieId);
+  if (newRating === movie.rating) {
+    movie.rating = 0;
+  } else {
+    movie.rating = newRating;
+  }
+};
 </script>
 
 <template>
@@ -32,14 +41,17 @@ const movies = reactive(items);
             <span class="movie-item-rating-text">
               Rating: ({{ movie.rating }}/5)
             </span>
-            <StarIcon
-              v-for="star in movie.rating"
-              :key="`star-${star}`"
-              class="movie-item-star-icon"
-            />
+            <button v-for="n in 5" :key="n" @click="selectRating(n, movie.id)">
+              <StarIcon
+                class="h-5 w-5"
+                :style="n <= movie.rating ? 'color: orange' : 'color: black'"
+              />
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped></style>
