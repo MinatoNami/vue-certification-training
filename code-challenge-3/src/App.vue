@@ -12,10 +12,22 @@ function updateRating(movieIndex, rating) {
   <div class="app">
     <div class="movie-list">
       <div
-        class="movie-item"
+        class="movie-item relative"
         v-for="(movie, movieIndex) in movies"
         :key="movie.id"
       >
+        <div class="absolute top-2 right-2 z-50">
+          <div class="relative">
+            <StarIcon
+              class="h-12"
+              :class="movie.rating !== 0 ? 'text-yellow-500' : 'text-gray-500'"
+            />
+            <span class="absolute top-3 right-5 z-50 h-12">{{
+              movie.rating !== 0 ? movie.rating : "-"
+            }}</span>
+          </div>
+        </div>
+
         <div class="movie-item-image-wrapper">
           <img :src="movie.image" class="movie-item-image" alt="" />
         </div>
